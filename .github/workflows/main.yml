@@ -5,6 +5,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: "[Docker] Dockerリポジトリ用のタグを環境変数へ設定"
+      run: |
+        echo "IMAGE_TAG=hogehoge" >> $GITHUB_ENV
       - uses: mshick/add-pr-comment@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -20,6 +23,7 @@ jobs:
             - ${{ secrets.GITHUB_TOKEN }}-aiueo!!
             - ${ process.env.GITHUB_TOKEN }
             - ${{ github.sha }}
+            - ${IMAGE_TAG}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
           allow-repeats: false # This is the default
