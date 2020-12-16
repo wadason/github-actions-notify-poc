@@ -15,15 +15,7 @@ jobs:
           message: |
             # mark down??
             ## hoge
-            - aaa
-            - bbb
-            - [google](google.com)
-            - $GITHUB_TOKEN
-            - ${{ secrets.GITHUB_TOKEN }}
-            - ${{ secrets.GITHUB_TOKEN }}-aiueo!!
-            - ${ process.env.GITHUB_TOKEN }
-            - ${{ github.sha }}
-            - ${IMAGE_TAG}
+            "${{ env.IMAGE_TAG }}"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
           allow-repeats: false # This is the default
