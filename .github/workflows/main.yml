@@ -1,21 +1,21 @@
-on:
-  pull_request:
+name: notify-example
+
+on: [push]
 
 jobs:
-  test:
+
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: "[Docker] Dockerリポジトリ用のタグを環境変数へ設定"
-        run: |
-          echo "IMAGE_TAG=hogehoge" >> $GITHUB_ENV
-      - uses: mshick/add-pr-comment@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+      - uses: peter-evans/create-or-update-comment@v1
         with:
-          message: |
-            # mark down??
-            ## hoge
-            ${{ env.IMAGE_TAG }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
-          allow-repeats: false # This is the default
+          issue-number: 1
+          body: |
+            This is a multi-line test comment
+            - With GitHub **Markdown** :sparkles:
+            - Created by [create-or-update-comment][1]
+
+            [1]: https://github.com/peter-evans/create-or-update-comment
+          reactions: '+1'
