@@ -9,13 +9,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: peter-evans/create-or-update-comment@v1
+      - name: "AWS認証情報を設定"
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          issue-number: 1
-          body: |
-            This is a multi-line test comment
-            - With GitHub **Markdown** :sparkles:
-            - Created by [create-or-update-comment][1]
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+      - name: "SSMのパラメータストアからファイルを生成する"
+        run: |
+          aws ssm get-parameter --name '/sample/text' --with-decryption --query 'Parameter.Value' --output text > sample.txt
+        working-directory: .
 
-            [1]: https://github.com/peter-evans/create-or-update-comment
-          reactions: '+1'
