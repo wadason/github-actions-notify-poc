@@ -8,14 +8,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: peter-evans/create-or-update-comment@v1
+      - name: "環境変数"
+        run: |
+          echo "IMAGE_TAG=test:${{ github.sha }}" >> $GITHUB_ENV
+      - name: "通知"
+        uses: tokorom/action-slack-incoming-webhook@main
+        if: github.ref == 'refs/heads/release'
+        env:
+          INCOMING_WEBHOOK_URL: ${{ secrets.WEB_HOOK }}
         with:
-          issue-number: 1
-          body: |
-            This is a multi-line test comment
-            - With GitHub **Markdown** :sparkles:
-            - Created by [create-or-update-comment][1]
-
-            [1]: https://github.com/peter-evans/create-or-update-comment
-          reactions: '+1'
+          text: $IMAGE_TAG 
