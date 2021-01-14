@@ -15,6 +15,5 @@ jobs:
         uses: tokorom/action-slack-incoming-webhook@main
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.WEB_HOOK }}
-          TEST: ${{ env.IMAGE_TAG }}
         with:
-          text: にゃーん. `${{ env.TEST }}`
+          text: にゃーん. `${{ env.IMAGE_TAG }}`
