@@ -16,4 +16,6 @@ jobs:
         env:
           INCOMING_WEBHOOK_URL: ${{ secrets.WEB_HOOK }}
         with:
-          text: にゃーん. `${{ env.IMAGE_TAG }}` \n あああ [テスト](google.com)
+          text: | 
+            にゃーん. `${{ env.IMAGE_TAG }}`
+            あああ [テスト](google.com)
