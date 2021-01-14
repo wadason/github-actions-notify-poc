@@ -17,4 +17,4 @@ jobs:
           INCOMING_WEBHOOK_URL: ${{ secrets.WEB_HOOK }}
           TEST: $IMAGE_TAG 
         with:
-          text: $TEST
+          text: ${{ env.TEST }}
