@@ -16,6 +16,7 @@ jobs:
           SLACK_CHANNEL: ${{ secrets.TARGET_CHANNEL }}
           SLACK_TITLE: Test Success
           SLACK_COLOR: good
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       - name: Slack Notification on Failure
         uses: rtCamp/action-slack-notify@v2.0.2
         if: failure()
@@ -23,3 +24,4 @@ jobs:
           SLACK_CHANNEL: ${{ secrets.TARGET_CHANNEL }}
           SLACK_TITLE: Test Failure
           SLACK_COLOR: danger
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
