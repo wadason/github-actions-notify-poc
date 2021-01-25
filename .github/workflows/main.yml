@@ -9,13 +9,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: peter-evans/create-or-update-comment@v1
-        with:
-          issue-number: 1
-          body: |
-            This is a multi-line test comment
-            - With GitHub **Markdown** :sparkles:
-            - Created by [create-or-update-comment][1]
+      - name: Slack Notification on Success
+          if: success()
+          uses: rtCamp/action-slack-notify@v2.0.2
+          env:
+            SLACK_CHANNEL: ${{ secrets.TARGET_CHANNEL }}
+            SLACK_TITLE: Test Success
+            SLACK_COLOR: good
 
-            [1]: https://github.com/peter-evans/create-or-update-comment
-          reactions: '+1'
+        - name: Slack Notification on Failure
+          uses: rtCamp/action-slack-notify@v2.0.2
+          if: failure()
+          env:
+            SLACK_CHANNEL: ${{ secrets.TARGET_CHANNEL }}
+            SLACK_TITLE: Test Failure
+            SLACK_COLOR: danger
