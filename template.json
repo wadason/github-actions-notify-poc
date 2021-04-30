@@ -1,0 +1,5 @@
+{
+  "version": "${VERSION}",
+  "instance": "${INSTANCE}",
+  "test": "${TEST}"
+}

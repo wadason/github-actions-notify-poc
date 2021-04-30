@@ -1,4 +1,4 @@
-name: notify-example
+name: env-test
 
 on: [push]
 
@@ -9,13 +9,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: peter-evans/create-or-update-comment@v1
+      - name: "環境変数格納"
+        run: |
+          echo "VERSION=100" >> $GITHUB_ENV
+          echo "INSTANCE=stg" >> $GITHUB_ENV
+      - uses: danielr1996/envsubst-action@1.0.0
+        env:
+            VERSION: ${{ env.VERSION }}
+            INSTANCE: ${{ env.INSTANCE }}
+            TEST: on
         with:
-          issue-number: 1
-          body: |
-            This is a multi-line test comment
-            - With GitHub **Markdown** :sparkles:
-            - Created by [create-or-update-comment][1]
-
-            [1]: https://github.com/peter-evans/create-or-update-comment
-          reactions: '+1'
+          input: template.json
+          output: deployment.json
+      - name: "環境変数格納"
+        run: |
+          cat deployment.json
